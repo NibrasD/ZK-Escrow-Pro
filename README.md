@@ -22,12 +22,6 @@ Unlike traditional smart contracts where shared state mappings expose transactio
 3. **Execution**: Transitions such as `submit_delivery`, `release_payment`, or `claim_bounty` are invoked by consuming an authorization ticket.
 4. **Resolution**: Funds are distributed seamlessly directly into the private, shielded balance of the resulting winner.
 
-## ⚠️ Aleo Network Constraints & ZK-Privacy Trade-offs
-
-A core value of ZK-Escrow Pro is transparency about what is **Hidden** vs. **Verifiable**.
-
-In the current Aleo network architecture, smart contracts (Programs) do NOT possess private keys. As a result, contracts cannot hold native `credits.aleo` records in a completely shielded state. To securely lock funds within a trustless contract mapping, ZK-Escrow Pro utilizes the `transfer_private_to_public` function.
-
 **What this means:**
 - **Public TVL (Verifiable):** The Aleo Explorer will show the exact *Amount* of ALEO transferred into the Escrow contract's public balance. This enables public accountability and Total Value Locked (TVL) tracking.
 - **Perfect Anonymity (Hidden):** Despite the amount being visible, **EVERYTHING ELSE is cryptographically shielded**. The network cannot see:
@@ -61,6 +55,19 @@ You can easily deploy the contract directly using the provided deployment script
 ```
 Follow the prompt to insert your testnet Beta private key. The script will securely deploy using the Provable testnet endpoint.
 
+## 🚀 Deployment to Render (Automatic)
+
+This project is pre-configured for **Render Blueprints**. 
+
+1. **Connect Repository**: Link your GitHub repository to [Render](https://render.com).
+2. **Deploy**: Render will automatically detect the `render.yaml` file and set up a **Static Site** service.
+3. **Manual Configuration (if not using Blueprints)**:
+   - **Service Type**: Static Site
+   - **Build Command**: `npm install && npm run build`
+   - **Publish Directory**: `frontend/out`
+   - **Environment Variables**: Add `NODE_VERSION` = `18.17.0` or higher.
+
 ## Project Structure
 - `/contracts/zk_escrow_v6_prod`: Core Aleo smart contracts fully compliant with V4 network upgrades.
 - `/frontend`: Client-facing web dashboard optimized for Wallet Adapter handling of local Aleo records.
+- `/render.yaml`: Deployment configuration for Render.com.

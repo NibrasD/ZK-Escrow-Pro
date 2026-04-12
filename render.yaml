@@ -1,0 +1,9 @@
+services:
+  - type: static
+    name: zk-escrow-pro
+    env: static
+    buildCommand: npm install && npm run build
+    staticPublishPath: frontend/out
+    envVars:
+      - key: NODE_VERSION
+        value: 18.17.0
