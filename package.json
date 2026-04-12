@@ -1,0 +1,23 @@
+{
+  "name": "zk-escrow-pro",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "next dev frontend",
+    "build": "next build frontend",
+    "start": "next start frontend",
+    "lint": "next lint frontend"
+  },
+  "dependencies": {
+    "@aleohq/sdk": "^0.6.9",
+    "@demox-labs/aleo-wallet-adapter": "latest",
+    "@demox-labs/aleo-wallet-adapter-base": "latest",
+    "@demox-labs/aleo-wallet-adapter-leo": "latest",
+    "@demox-labs/aleo-wallet-adapter-react": "latest",
+    "@demox-labs/aleo-wallet-adapter-reactui": "latest",
+    "@provablehq/aleo-wallet-adaptor-shield": "^0.3.0-alpha.3",
+    "lucide-react": "^1.8.0",
+    "next": "14.2.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  }
+}

@@ -1,0 +1,13 @@
+{
+    "program": "zk_escrow_v6_prod.aleo",
+    "version": "1.0.0",
+    "description": "True ZK Privacy-First Payment Settlement Layer with UTXO shielding",
+    "license": "MIT",
+    "dependencies": [
+        {
+            "name": "credits.aleo",
+            "location": "network",
+            "network": "testnet"
+        }
+    ]
+}
