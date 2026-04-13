@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "next dev frontend",
-    "build": "next build frontend",
+    "build": "next build frontend && rm -rf dist && cp -r frontend/out dist",
     "start": "next start frontend",
     "lint": "next lint frontend"
   },
