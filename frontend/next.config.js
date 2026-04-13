@@ -22,16 +22,9 @@ const nextConfig = {
       };
     }
 
-    // Force Terser to support modules for Top-Level Await
-    if (config.optimization && config.optimization.minimizer) {
-      config.optimization.minimizer.forEach((minimizer) => {
-        if (minimizer.constructor.name === 'TerserPlugin') {
-          if (minimizer.options && minimizer.options.terserOptions) {
-            minimizer.options.terserOptions.module = true;
-          }
-        }
-      });
-    }
+    // Definitive Fix for Aleo SDK + Render:
+    // Disable minification in production to bypass 'top-level await' parser errors in workers.
+    config.optimization.minimize = false;
 
     return config;
   },
