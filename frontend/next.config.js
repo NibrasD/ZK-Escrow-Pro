@@ -2,14 +2,26 @@
 const nextConfig = {
   output: 'export',
   transpilePackages: ["@aleohq/sdk", "@demox-labs/aleo-wallet-adapter-base"],
-  webpack: (config) => {
+  webpack: (config, { isServer }) => {
     config.experiments = {
       ...config.experiments,
       asyncWebAssembly: true,
       topLevelAwait: true,
-      layers: true,
-      outputModule: true,
     };
+
+    if (!isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false,
+        net: false,
+        tls: false,
+        crypto: false,
+        os: false,
+        path: false,
+        stream: false,
+      };
+    }
+
     return config;
   },
 }
