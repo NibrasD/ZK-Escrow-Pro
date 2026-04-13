@@ -18,6 +18,8 @@ const STORAGE_KEY = 'zkescrow_v6_jobs';
 
 export default function Dashboard() {
   const { publicKey, wallet, connected, requestTransaction, requestRecords } = useWallet();
+  const cleanAleoValue = (val) => String(val || '').replace(/field|u64|u32|i64|i32/gi, '');
+
   
   // Safely extract the string representation of the address
   let activeAddress = null;
@@ -207,7 +209,7 @@ export default function Dashboard() {
       });
 
       if (updated) setJobs(newJobs);
-      alert("✅ Records Synchronized! Your dashboard has been updated based on your private keys.");
+      // alert("✅ Records Synchronized! Your dashboard has been updated based on your private keys.");
     } catch (err) {
       alert("Sync failed: " + err.message);
     } finally {
@@ -382,7 +384,7 @@ export default function Dashboard() {
       setJobs(prev => [newJob, ...prev]);
       setShowCreateForm(false);
       setTxStatus('done');
-      alert("✅ Private Escrow Created via Shield Wallet!");
+      // alert("✅ Private Escrow Created via Shield Wallet!");
     } catch (err) {
       setTxError(err.message);
       setTxStatus('error');
@@ -419,7 +421,7 @@ export default function Dashboard() {
         fee: 200_000,
       });
       if (!txId) throw new Error("Transaction was rejected or failed in the wallet.");
-      alert("🚀 Claim Bounty tx submitted: " + txId);
+      // alert("🚀 Claim Bounty tx submitted: " + txId);
       setJobs(prev => prev.map(j => j.id === job.id ? { ...j, isBounty: false, payee: activeAddress, budget: budgetUnits } : j));
       setTxStatus('done');
     } catch (err) {
@@ -515,7 +517,7 @@ export default function Dashboard() {
       setJobs(prev => prev.map(j => j.escrowId === job.escrowId ? { ...j, deliveryHash: finalHash } : j));
       setTxStatus('done');
       setShowDeliveryModal(null);
-      alert("🚀 Delivery Proof submitted: " + txId);
+      // alert("🚀 Delivery Proof submitted: " + txId);
     } catch (err) { setTxError(err.message); setTxStatus('error'); }
     finally { setIsProcessing(false); }
   };
@@ -593,7 +595,7 @@ export default function Dashboard() {
         }],
         fee: 250_000,
       });
-      alert("⚠️ Dispute tx submitted: " + txId);
+      // alert("⚠️ Dispute tx submitted: " + txId);
       setJobs(prev => prev.map(j => j.id === job.id ? { ...j, status: 'disputed' } : j));
       setTxStatus('done');
     } catch (err) { 
@@ -624,7 +626,7 @@ export default function Dashboard() {
         }],
         fee: 250_000,
       });
-      alert("💰 Refund tx submitted: " + txId);
+      // alert("💰 Refund tx submitted: " + txId);
       setJobs(prev => prev.map(j => j.id === job.id ? { ...j, status: 'refunded' } : j));
       setTxStatus('done');
     } catch (err) {
@@ -701,7 +703,7 @@ export default function Dashboard() {
       }, ...prev]);
 
       setImportId('');
-      alert("✅ Successfully loaded escrow state from the blockchain!");
+      // alert("✅ Successfully loaded escrow state from the blockchain!");
     } catch (err) {
       alert("Failed to fetch escrow: " + err.message);
     }
@@ -960,9 +962,9 @@ export default function Dashboard() {
 
                     <div className="code-snippet" style={{ borderColor: 'rgba(56, 189, 248, 0.3)' }}>
                       <span style={{ fontSize: '0.75rem', color: '#38bdf8', paddingRight: '0.5rem' }}>ID:</span>
-                      <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', flex: 1 }}>{job.escrowId}</span>
+                      <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', flex: 1 }}>{cleanAleoValue(job.escrowId)}</span>
                       <button onClick={() => { 
-                        const details = job.escrowId;
+                        const details = cleanAleoValue(job.escrowId);
                         
                         try {
                           if (navigator.clipboard && window.isSecureContext) {
@@ -977,7 +979,7 @@ export default function Dashboard() {
                             document.execCommand('copy');
                             document.body.removeChild(textArea);
                           }
-                          alert("Escrow ID Copied! " + details); 
+                          // alert("Escrow ID Copied! " + details); 
                         } catch (err) {
                           alert("Failed to copy. Please manually copy the ID.");
                           console.error('Copy failed', err);
