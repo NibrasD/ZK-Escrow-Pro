@@ -22,6 +22,17 @@ const nextConfig = {
       };
     }
 
+    // Force Terser to support modules for Top-Level Await
+    if (config.optimization && config.optimization.minimizer) {
+      config.optimization.minimizer.forEach((minimizer) => {
+        if (minimizer.constructor.name === 'TerserPlugin') {
+          if (minimizer.options && minimizer.options.terserOptions) {
+            minimizer.options.terserOptions.module = true;
+          }
+        }
+      });
+    }
+
     return config;
   },
 }
